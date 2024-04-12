@@ -4,8 +4,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import StockChart from './StockChart';
 
 
-function App() {
-
+const App = () => {
   
   const [loading, setLoading] = useState(false);
   const [symbol, setSymbol] = useState("IBM");
@@ -18,6 +17,9 @@ function App() {
     });
   }, []);
 
+  const REACT_APP_ALPHA_VANTAGE_APIKEY = "demo"; //process.env?.REACT_APP_ALPHA_VANTAGE_APIKEY || "demo";
+
+
   const fetchStockData = async () => {
     if (loading)return;
     setLoading(true);
@@ -25,7 +27,7 @@ function App() {
     try {
       const response = await fetch(
         // MSFT, IBM
-        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${interval}&apikey=demo`
+        `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${interval}&apikey=${REACT_APP_ALPHA_VANTAGE_APIKEY}`
       );
       const data = await response.json();
       let timeSeriesData = data['Time Series (5min)'] // Object.entries(data['Time Series (5min)']).slice(5).map(entry => entry[1]);
@@ -37,7 +39,6 @@ function App() {
         };
     })
 
-    console.log("timeSeriesData", timeSeriesData)
 
       return timeSeriesData;
     } catch(e) {

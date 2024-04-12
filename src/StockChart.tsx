@@ -32,7 +32,6 @@ const StockChart: React.FC<Props> = ({ data }) => {
 
         const dates = Object.keys(data).map((key, idx) => data[idx]?.date)
 
-        console.log("dates", dates);
         const prices = Object.keys(data).map((key, idx) => parseFloat(data[idx].open));
         
         const xScale = d3.scaleBand()
@@ -58,10 +57,10 @@ const StockChart: React.FC<Props> = ({ data }) => {
             .attr("x", (d) => xScale(d) || 0)
             .attr("width", xScale.bandwidth())
             .attr("y", (d, idx) => {
-                console.log("> data" , data)
-                console.log("> d" , d)
-                console.log("> idx" , idx)
-                console.log("> data[idx]" , data[idx])
+                // console.log("> data" , data)
+                // console.log("> d" , d)
+                // console.log("> idx" , idx)
+                // console.log("> data[idx]" , data[idx])
 
                 return yScale(parseFloat(data[idx].open)) || 0;
             })
